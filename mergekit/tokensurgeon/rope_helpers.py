@@ -30,7 +30,7 @@ def llama_rope_rotationmat(theta: torch.Tensor) -> torch.Tensor:
 
 
 def _rope_inv_freq(
-    base: float, dim: int, device: Optional["torch.device"] = None
+    base: float, dim: int, device: Optional[torch.device] = None
 ) -> torch.Tensor:
     return 1.0 / (
         base ** (torch.arange(0, dim, 2, dtype=torch.int64).float().to(device) / dim)
