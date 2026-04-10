@@ -12,7 +12,16 @@ from mergekit.architecture.base import (
 )
 from mergekit.architecture.json_definitions import NAME_TO_ARCH
 
-MISTRAL_INFO = NAME_TO_ARCH["MistralForCausalLM"][0]
+# Lazy initialization to avoid import order issues
+def _get_mistral_info():
+    if "MistralForCausalLM" not in NAME_TO_ARCH:
+        raise RuntimeError(
+            "MistralForCausalLM not found in NAME_TO_ARCH. "
+            "Architecture files may not be loaded yet."
+        )
+    return NAME_TO_ARCH["MistralForCausalLM"][0]
+
+MISTRAL_INFO = _get_mistral_info()
 MISTRAL_MODULE_ARCH = MISTRAL_INFO.modules["default"].architecture
 
 
